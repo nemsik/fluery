@@ -10,12 +10,12 @@ import org.apache.commons.lang3.StringUtils;
 /**
  * Created by bartek on 07.03.2019.
  */
-public class GraphClick extends JFrame {
+public class Controller extends JFrame {
 
     GUI gui;
 
-    public GraphClick() {
-        super("controller");
+    public Controller() {
+        super("Kontroler");
         gui = new GUI();
         setLayout(new BorderLayout());
         setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -25,14 +25,14 @@ public class GraphClick extends JFrame {
 
 
         final JTextField source = new JTextField();
-        final JTextField desc = new JTextField();
+        final JTextField dest = new JTextField();
 
         JPanel textPanel = new JPanel();
         textPanel.setLayout(new BorderLayout());
 
 
         textPanel.add(source, BorderLayout.NORTH);
-        textPanel.add(desc, BorderLayout.SOUTH);
+        textPanel.add(dest, BorderLayout.SOUTH);
 
 
         JPanel buttonPanel = new JPanel();
@@ -53,7 +53,7 @@ public class GraphClick extends JFrame {
         edgeButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 String s1 = source.getText();
-                String s2 = desc.getText();
+                String s2 = dest.getText();
                 if (!StringUtils.isBlank(s1) && !StringUtils.isBlank(s2) ) {
                     String name = s1 + s2;
                     try {
@@ -77,6 +77,10 @@ public class GraphClick extends JFrame {
                     } catch (Exception e3) {
                         System.err.println("punkt " + name + " już istnieje");
                     }
+                    source.setText("");
+                    dest.setText("");
+                } else {
+                    JOptionPane.showMessageDialog(JOptionPane.getRootFrame(), "Musisz wpisać dwa wierzchołki.");
                 }
             }
         });

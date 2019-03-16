@@ -35,11 +35,13 @@ public class GUI extends JFrame {
         JMenuBar menuBar = new JMenuBar();
         JMenu menu = new JMenu("Plik");
         JMenuItem jMenuOpen = new JMenuItem("Otwórz");
-        JMenuItem jMenuSave = new JMenuItem("Zapisz");
+        JMenuItem jMenuSave = new JMenuItem("Zapisz graf");
+        JMenuItem jMenuSavePicture = new JMenuItem("Zapisz obraz");
 
         menuBar.add(menu);
         menu.add(jMenuOpen);
         menu.add(jMenuSave);
+        menu.add(jMenuSavePicture);
         setJMenuBar(menuBar);
 
 
@@ -71,15 +73,13 @@ public class GUI extends JFrame {
                 int res = fileChooser.showOpenDialog(getParent());
 
                 if (res == JFileChooser.APPROVE_OPTION) {
-                    try
-                    {
+                    try {
                         FileInputStream fis = new FileInputStream(fileChooser.getSelectedFile());
                         ObjectInputStream ois = new ObjectInputStream(fis);
                         adjList = (HashMap) ois.readObject();
                         ois.close();
                         fis.close();
-                    }catch(IOException ioe)
-                    {
+                    } catch (IOException ioe) {
                         JOptionPane.showMessageDialog(JOptionPane.getRootFrame(), "Nastąpił problem z otwarciem pliku.");
                         ioe.printStackTrace();
                         return;
@@ -102,14 +102,14 @@ public class GUI extends JFrame {
                                     n2.addAttribute("ui.style", "shape:circle;fill-color: yellow;size: 90px; text-alignment: center;");
                                     n2.addAttribute("ui.label", key);
                                 }
-                                if (graph.getEdge(key+value) != null) continue;
+                                if (graph.getEdge(key + value) != null) continue;
                                 graph.addEdge(key + value, key, value);
                                 Edge e2 = graph.getEdge(key + value);
                                 e2.addAttribute("ui.style", "text-alignment: center; text-size: 20px; fill-color: green;");
                                 e2.addAttribute("ui.label", key + value);
                             }
                         }
-                    }catch (Exception e1) {
+                    } catch (Exception e1) {
                         JOptionPane.showMessageDialog(JOptionPane.getRootFrame(), "Nastąpił problem z wczytaniem grafu \nUpewnij się czy plik jest poprawny.");
                         System.err.println(e1.getMessage());
                     }
@@ -140,6 +140,20 @@ public class GUI extends JFrame {
                         JOptionPane.showMessageDialog(JOptionPane.getRootFrame(), "Nastąpił problem z zapisaniem grafu.");
                     }
 
+                }
+            }
+        });
+
+        jMenuSavePicture.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                JFileChooser fileChooser = new JFileChooser();
+                FileFilter fileFilter = new FileNameExtensionFilter("Plik JPG", "jpg");
+                fileChooser.setFileFilter(fileFilter);
+                fileChooser.setDialogTitle("Zapisz obraz grafu");
+                System.out.println(fileChooser.getChoosableFileFilters());
+                int res = fileChooser.showSaveDialog(getParent());
+
+                if (res == JFileChooser.APPROVE_OPTION) {
                     pic = new FileSinkImages(FileSinkImages.OutputType.PNG, FileSinkImages.Resolutions.VGA);
                     pic.setLayoutPolicy(FileSinkImages.LayoutPolicy.COMPUTED_FULLY_AT_NEW_IMAGE);
                     try {
@@ -147,7 +161,6 @@ public class GUI extends JFrame {
                     } catch (IOException imageException) {
                         JOptionPane.showMessageDialog(JOptionPane.getRootFrame(), "Nastąpił problem z zapisaniem obrazu.");
                     }
-
                 }
             }
         });
@@ -161,7 +174,7 @@ public class GUI extends JFrame {
         e.addAttribute("ui.style", "text-alignment: center; text-size: 20px; fill-color: green;");
         e.addAttribute("ui.label", name);
 
-        if(adjList.get(s1) != null) {
+        if (adjList.get(s1) != null) {
             adjList.get(s1).add(s2);
         } else {
             adjList.put(s1, new ArrayList<String>());

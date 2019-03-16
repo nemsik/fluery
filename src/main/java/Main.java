@@ -9,8 +9,8 @@ public class Main  {
 
     public static void main(String[] args) {
 
-        GraphClick graphClick = new GraphClick();
-        graphClick.setVisible(true);
+        Controller controller = new Controller();
+        controller.setVisible(true);
 
     }
 }
