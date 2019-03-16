@@ -35,11 +35,13 @@ public class GUI extends JFrame {
         JMenuBar menuBar = new JMenuBar();
         JMenu menu = new JMenu("Plik");
         JMenuItem jMenuOpen = new JMenuItem("Otwórz");
-        JMenuItem jMenuSave = new JMenuItem("Zapisz");
+        JMenuItem jMenuSave = new JMenuItem("Zapisz graf");
+        JMenuItem jMenuSavePicture = new JMenuItem("Zapisz obraz");
 
         menuBar.add(menu);
         menu.add(jMenuOpen);
         menu.add(jMenuSave);
+        menu.add(jMenuSavePicture);
         setJMenuBar(menuBar);
 
 
@@ -140,6 +142,20 @@ public class GUI extends JFrame {
                         JOptionPane.showMessageDialog(JOptionPane.getRootFrame(), "Nastąpił problem z zapisaniem grafu.");
                     }
 
+                }
+            }
+        });
+
+        jMenuSavePicture.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                JFileChooser fileChooser = new JFileChooser();
+                FileFilter fileFilter = new FileNameExtensionFilter("Plik JPG", "jpg");
+                fileChooser.setFileFilter(fileFilter);
+                fileChooser.setDialogTitle("Zapisz obraz grafu");
+                System.out.println(fileChooser.getChoosableFileFilters());
+                int res = fileChooser.showSaveDialog(getParent());
+
+                if (res == JFileChooser.APPROVE_OPTION) {
                     pic = new FileSinkImages(FileSinkImages.OutputType.PNG, FileSinkImages.Resolutions.VGA);
                     pic.setLayoutPolicy(FileSinkImages.LayoutPolicy.COMPUTED_FULLY_AT_NEW_IMAGE);
                     try {
@@ -147,7 +163,6 @@ public class GUI extends JFrame {
                     } catch (IOException imageException) {
                         JOptionPane.showMessageDialog(JOptionPane.getRootFrame(), "Nastąpił problem z zapisaniem obrazu.");
                     }
-
                 }
             }
         });
