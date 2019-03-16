@@ -15,7 +15,7 @@ public class GraphClick extends JFrame {
     GUI gui;
 
     public GraphClick() {
-        super("controller");
+        super("Kontroler");
         gui = new GUI();
         setLayout(new BorderLayout());
         setDefaultCloseOperation(EXIT_ON_CLOSE);
