@@ -111,17 +111,6 @@ public class GUI extends JFrame {
                                 e2.addAttribute("ui.label", key + value);
                             }
                         }
-//                        graph.clear();
-//                        for(String key : adjList.keySet()) {
-//                            if(graph.getNode(key) == null) {
-//                                graph.addNode(key);
-//                                for (String val: adjList.get(key)) {
-//                                    if(graph.getNode(val) == null) {
-//                                        graph.addNode(val);
-//                                    }
-//                                }
-//                            }
-//                        }
                     } catch (Exception e1) {
                         JOptionPane.showMessageDialog(JOptionPane.getRootFrame(), "Nastąpił problem z wczytaniem grafu \nUpewnij się czy plik jest poprawny.");
                         System.err.println(e1.getMessage());
