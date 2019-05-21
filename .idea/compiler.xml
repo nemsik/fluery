@@ -10,7 +10,7 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="fluery" target="1.5" />
+      <module name="fluery" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>
