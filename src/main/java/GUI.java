@@ -73,6 +73,7 @@ public class GUI extends JFrame {
                 int res = fileChooser.showOpenDialog(getParent());
 
                 if (res == JFileChooser.APPROVE_OPTION) {
+                    adjList.clear();
                     try {
                         FileInputStream fis = new FileInputStream(fileChooser.getSelectedFile());
                         ObjectInputStream ois = new ObjectInputStream(fis);
@@ -88,6 +89,7 @@ public class GUI extends JFrame {
                         e1.printStackTrace();
                     }
                     try {
+                        graph.clear();
                         for (String key : adjList.keySet()) {
                             if (graph.getNode(key) == null) {
                                 addNode(key);
@@ -100,7 +102,7 @@ public class GUI extends JFrame {
                                     addNode(value);
                                     Node n2 = graph.getNode(value);
                                     n2.addAttribute("ui.style", "shape:circle;fill-color: yellow;size: 90px; text-alignment: center;");
-                                    n2.addAttribute("ui.label", key);
+                                    n2.addAttribute("ui.label", value);
                                 }
                                 if (graph.getEdge(key + value) != null) continue;
                                 graph.addEdge(key + value, key, value);
